@@ -132,6 +132,12 @@ interface CustomMetric {
 
 const AdReportingTool = () => {
   console.log('AdReportingTool component initializing...');
+  console.log('Environment variables:', {
+    VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
+    VITE_SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY ? 'SET' : 'NOT SET',
+    NODE_ENV: import.meta.env.NODE_ENV,
+    MODE: import.meta.env.MODE
+  });
   
   const [brands, setBrands] = useState<Brand[]>([
     { 
@@ -1936,12 +1942,22 @@ const AdReportingTool = () => {
     ));
   };
   
+  // Debug environment variables
+  const isSupabaseConfigured = !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY);
+
   return (
     <div 
       className="flex h-screen p-6 gap-6" 
       style={{ background: 'linear-gradient(135deg, #FF3534 0%, #FF3534 80%, #FFB84E 100%)' }}
       tabIndex={0}
     >
+      {/* Temporary debug info - remove after testing */}
+      <div className="fixed top-0 left-0 right-0 bg-yellow-100 border-b border-yellow-400 text-yellow-800 px-4 py-2 text-sm z-50">
+        <strong>Debug:</strong> Supabase configured: {isSupabaseConfigured ? '✅ YES' : '❌ NO'} | 
+        URL: {import.meta.env.VITE_SUPABASE_URL ? '✅ SET' : '❌ MISSING'} | 
+        Key: {import.meta.env.VITE_SUPABASE_ANON_KEY ? '✅ SET' : '❌ MISSING'} | 
+        Mode: {import.meta.env.MODE}
+      </div>
       {/* Compact Left Navigation Bar */}
       <div className="w-20 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col backdrop-blur-xl">
         {/* Agency Logo */}
