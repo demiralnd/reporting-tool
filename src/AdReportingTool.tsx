@@ -131,6 +131,8 @@ interface CustomMetric {
 }
 
 const AdReportingTool = () => {
+  console.log('AdReportingTool component initializing...');
+  
   const [brands, setBrands] = useState<Brand[]>([
     { 
       id: 1, 
@@ -232,7 +234,12 @@ const AdReportingTool = () => {
 
   // Load saved campaigns on component mount
   useEffect(() => {
-    loadSavedCampaigns();
+    // Only load campaigns if Supabase is properly configured
+    if (import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY) {
+      loadSavedCampaigns();
+    } else {
+      console.warn('Supabase not configured - skipping campaign loading');
+    }
   }, []);
 
   const loadSavedCampaigns = async () => {
@@ -242,7 +249,8 @@ const AdReportingTool = () => {
       setSavedCampaigns(campaigns);
     } catch (error) {
       console.error('Failed to load campaigns:', error);
-      alert('Failed to load saved campaigns');
+      // Don't show alert on initial load failure
+      setSavedCampaigns([]);
     } finally {
       setIsLoading(false);
     }
