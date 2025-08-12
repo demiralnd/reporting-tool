@@ -6,7 +6,7 @@ import logoNew from './logo-new.png';
 import FortuneSheetComponent from './FortuneSheetComponent';
 import MetricsAutocomplete from './MetricsAutocomplete';
 import CampaignSelectionModal from './CampaignSelectionModal';
-import { CampaignService, SaveCampaignData, Campaign } from './lib/campaignService';
+import { CampaignService, SaveCampaignData, Campaign as SavedCampaign } from './lib/campaignService';
 
 // Complete metrics list
 const ALL_METRICS = [
@@ -174,7 +174,7 @@ const AdReportingTool = () => {
   const [isUpdateMode, setIsUpdateMode] = useState(false);
   
   // Campaign management state
-  const [savedCampaigns, setSavedCampaigns] = useState<Campaign[]>([]);
+  const [savedCampaigns, setSavedCampaigns] = useState<SavedCampaign[]>([]);
   const [isSaving, setIsSaving] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [saveAsNewName, setSaveAsNewName] = useState('');
@@ -280,7 +280,7 @@ const AdReportingTool = () => {
     }
   };
 
-  const handleLoadCampaign = async (campaign: Campaign) => {
+  const handleLoadCampaign = async (campaign: SavedCampaign) => {
     try {
       const currentBrand = brands.find(b => b.id === selectedBrand);
       if (!currentBrand) return;

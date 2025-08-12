@@ -43,7 +43,6 @@ const CampaignSelectionModal: React.FC<CampaignSelectionModalProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [metricMapping, setMetricMapping] = useState<MetricMapping>({});
   const [showMetricMapping, setShowMetricMapping] = useState(false);
-  const [newMetricName, setNewMetricName] = useState('');
 
   if (!isOpen) return null;
 
@@ -87,7 +86,7 @@ const CampaignSelectionModal: React.FC<CampaignSelectionModalProps> = ({
       });
       
       // Check common aliases
-      const aliases = {
+      const aliases: { [key: string]: string[] } = {
         'cost': ['amount spent', 'spend'],
         'spend': ['amount spent', 'cost'],
         'amount spent': ['cost', 'spend'],
@@ -102,7 +101,7 @@ const CampaignSelectionModal: React.FC<CampaignSelectionModalProps> = ({
       
       const possibleAliases = aliases[uploadedLower] || [];
       const aliasMatches = availableMetrics.filter(targetMetric => 
-        possibleAliases.some(alias => targetMetric.toLowerCase().includes(alias))
+        possibleAliases.some((alias: string) => targetMetric.toLowerCase().includes(alias))
       );
       
       return {
@@ -540,13 +539,13 @@ const CampaignSelectionModal: React.FC<CampaignSelectionModalProps> = ({
                         .map(c => c.data[uploadedMetric])
                         .filter(val => val && val.trim() !== '');
                       
-                      const confidenceColors = {
+                      const confidenceColors: { [key: string]: string } = {
                         high: 'border-green-300 bg-green-50',
                         medium: 'border-yellow-300 bg-yellow-50', 
                         low: 'border-gray-300 bg-gray-50'
                       };
                       
-                      const confidenceIcons = {
+                      const confidenceIcons: { [key: string]: string } = {
                         high: '🎯',
                         medium: '💡',
                         low: '❓'
@@ -701,7 +700,7 @@ const CampaignSelectionModal: React.FC<CampaignSelectionModalProps> = ({
                         
                         // Try common aliases
                         if (!similarTarget) {
-                          const aliases = {
+                          const aliases: { [key: string]: string[] } = {
                             'cost': ['amount spent', 'spend', 'cost'],
                             'spend': ['amount spent', 'cost', 'spend'],
                             'amount spent': ['cost', 'spend', 'amount spent'],
@@ -713,7 +712,7 @@ const CampaignSelectionModal: React.FC<CampaignSelectionModalProps> = ({
                           
                           const possibleAliases = aliases[uploadedLower] || [];
                           similarTarget = availableMetrics.find(targetMetric => 
-                            possibleAliases.some(alias => targetMetric.toLowerCase().includes(alias))
+                            possibleAliases.some((alias: string) => targetMetric.toLowerCase().includes(alias))
                           );
                         }
                         

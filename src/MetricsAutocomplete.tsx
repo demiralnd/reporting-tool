@@ -21,8 +21,7 @@ const MetricsAutocomplete: React.FC<MetricsAutocompleteProps> = ({
   selectedMetrics,
   onToggleMetric,
   onReorderMetrics,
-  onAddCustomMetric,
-  placeholder = "Search and select metrics..."
+  onAddCustomMetric
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isOpen, setIsOpen] = useState(false);

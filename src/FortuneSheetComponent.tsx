@@ -376,10 +376,10 @@ const FortuneSheetComponent: React.FC<FortuneSheetComponentProps> = ({
 
     // Run immediately and after delays to ensure FortuneSheet is loaded
     overrideDefaults();
-    setTimeout(() => { overrideDefaults(); autoResizeColumns(); }, 100);
-    setTimeout(() => { overrideDefaults(); autoResizeColumns(); }, 500);
-    setTimeout(() => { overrideDefaults(); autoResizeColumns(); }, 1000);
-    setTimeout(() => { overrideDefaults(); autoResizeColumns(); }, 2000);
+    setTimeout(() => { overrideDefaults(); /* autoResizeColumns(); */ }, 100);
+    setTimeout(() => { overrideDefaults(); /* autoResizeColumns(); */ }, 500);
+    setTimeout(() => { overrideDefaults(); /* autoResizeColumns(); */ }, 1000);
+    setTimeout(() => { overrideDefaults(); /* autoResizeColumns(); */ }, 2000);
     
     // Also run on any DOM changes - AGGRESSIVE MONITORING
     const observer = new MutationObserver((mutations) => {
@@ -412,8 +412,8 @@ const FortuneSheetComponent: React.FC<FortuneSheetComponentProps> = ({
         // Use setTimeout to avoid infinite loops
         setTimeout(() => {
           overrideDefaults();
-          fixScrolling(); // Also apply scrolling fixes when DOM changes
-          autoResizeColumns(); // Auto-resize when content changes
+          // fixScrolling(); // Also apply scrolling fixes when DOM changes
+          // autoResizeColumns(); // Auto-resize when content changes
         }, 0);
       }
     });
@@ -438,42 +438,7 @@ const FortuneSheetComponent: React.FC<FortuneSheetComponentProps> = ({
         showToolbar={true}
         showSheetTabs={true}
         showFormulaBar={true}
-        enableAddRow={true}
-        enableAddColumn={true}
-        allowInsertRow={true}
-        allowInsertColumn={true}
-        allowDeleteRow={true}
-        allowDeleteColumn={true}
         ref={workbookRef}
-        options={{
-          container: 'luckysheet',
-          title: 'Ad Reporting Tool',
-          lang: 'en',
-          allowEdit: true,
-          enableAddRow: true,
-          enableAddColumn: true,
-          showsheetbar: true,
-          showstatisticBar: true,
-          allowInsertRow: true,
-          allowInsertColumn: true,
-          allowDeleteRow: true,
-          allowDeleteColumn: true,
-          // Optimized scrolling configuration with auto-sizing
-          scrollbars: true,
-          scrollbarX: true,
-          scrollbarY: true,
-          overflow: 'auto',
-          rowHeaderWidth: 46,
-          colHeaderHeight: 20,
-          columnHeaderHeight: 20,
-          rowlen: {},
-          columnlen: {},
-          defaultColWidth: 80,
-          defaultRowHeight: 19,
-          // Enable auto column width adjustment
-          autoColumnWidth: true,
-          autoRowHeight: false
-        }}
         onChange={(data: any) => {
           // Handle cell changes
           if (onCellChange && data && data.length > 0) {

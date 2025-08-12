@@ -1,5 +1,7 @@
 import { supabase, Campaign, SaveCampaignData } from './supabase'
 
+export type { Campaign, SaveCampaignData }
+
 export class CampaignService {
   
   static async saveCampaign(campaignData: SaveCampaignData): Promise<Campaign> {
